@@ -1,0 +1,121 @@
+---
+swagger: "2.0"
+info:
+  description: "Serviço para envio de e-mails utilizando SOAP ou REST. Escopos disponí\
+    veis: email-service-api:post."
+  version: "2.0.48"
+  title: "Email Service"
+  contact:
+    name: "CODTI.EQINT"
+    email: "codti.eqint@poupex.com.br"
+host: "emailservicehomologa.hml.cloud.poupex"
+basePath: "/"
+tags:
+  - name: "email-controller"
+    description: "Email Controller"
+paths:
+  /email/enviar:
+    post:
+      tags:
+        - "email-controller"
+      summary: "Solicita o envio da mensagem de e-mail. Necessário especificar ou\
+        \ o corpo ou o template."
+      operationId: "enviarUsingPOST"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "*/*"
+      parameters:
+        - in: formData
+          name: "aliasRemetente"
+          required: false
+          schema:
+            type: "string"
+        - name: "anexos"
+          in: "formData"
+          description: "anexos"
+          required: false
+          type: "array"
+          items:
+            type: "file"
+          collectionFormat: "multi"
+        - in: "formData"
+          name: "assunto"
+          required: true
+          schema:
+            type: "string"
+        - in: "formData"
+          name: "comCopia"
+          required: false
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        - in: "formData"
+          name: "comCopiaOculta"
+          required: false
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        - in: "formData"
+          name: "corpo"
+          required: false
+          schema:
+            type: "string"
+        - in: "formData"
+          name: "destinatarios"
+          required: true
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        - in: "formData"
+          name: "empresa"
+          required: false
+          schema:
+            type: "string"
+        - in: "formData"
+          name: "formato"
+          required: false
+          schema:
+            type: "string"
+        - in: "formData"
+          name: "nativeRequest"
+          required: false
+          schema:
+            type: "object"
+        - in: "formData"
+          name: "nativeResponse"
+          required: false
+          schema:
+            type: "object"
+        - in: "formData"
+          name: "remetente"
+          required: false
+          schema:
+            type: "string"
+        - in: "formData"
+          name: "responderPara"
+          required: false
+          schema:
+            type: "string"
+        - name: "template"
+          in: "formData"
+          description: "template"
+          required: false
+          type: "file"
+      responses:
+        "200":
+          description: "OK"
+        "201":
+          description: "Created"
+        "401":
+          description: "Unauthorized"
+        "403":
+          description: "Forbidden"
+        "404":
+          description: "Not Found"
+      security:
+        - F5: []
+      deprecated: false
